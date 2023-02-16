@@ -135,7 +135,9 @@
 }
 
 .newsContainer__cardImage img {
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
     border-radius: .3rem .3rem 0rem 0;
 }
 
@@ -152,4 +154,3 @@
     align-items: center;
     justify-content: center;
 }
-
