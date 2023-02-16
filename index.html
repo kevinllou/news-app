@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index.css">
     <title>News App</title>
 </head>
@@ -12,28 +15,26 @@
 <body>
     <header class="header">
         <div class="header__logoContainer">
-            <div class="header_imgContainer">
+            <div class="header__imgContainer">
                 <img src="./img/news-icon.png" alt="news logo">
             </div>
             <a href="#">24 NEWS</a>
-
-
         </div>
         <div class="header__searchForm">
-            <span class="header__iconSpan"><span>Icon</span></span>
+            <span class="header__iconSpan"><i class="fa-solid fa-magnifying-glass"></i></span>
             <form class="header__formContainer">
                 <input type="search" name="search" id="search" placeholder="Search">
             </form>
         </div>
         <div class="header__filterOptions">
             <select name="language" id="language" class="header__languageOptions">
-                <option value="null" selected>Choose a language</option>
+                <option value="null" selected disabled>Choose a language</option>
                 <option value="All">All</option>
                 <option value="English">English</option>
                 <option value="Spanish">Spanish</option>
             </select>
             <select name="numberOfNews" id="numberOfNews">
-                <option value="null" selected>Number of News</option>
+                <option value="null" selected disabled>Number of news</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
