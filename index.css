@@ -7,6 +7,13 @@
     font-family: 'Manrope', sans-serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
 /* HEADER */
 
 .header {
@@ -196,6 +203,10 @@
 
 }
 
+main {
+    flex: 1;
+}
+
 /* FILTER BUTTONS*/
 
 .filterButtons {
@@ -262,6 +273,7 @@
 /* FOOTER */
 
 .footer {
+
     padding: 2rem;
     text-align: center;
     background-color: #222222;
