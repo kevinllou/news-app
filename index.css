@@ -10,13 +10,24 @@
 /* HEADER */
 
 .header {
-    padding: 0 2rem;
+    position: relative;
+    padding: .6rem 2rem;
     display: flex;
-    height: 70px;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     background-color: #F0F2F2;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.185);
+    border-bottom: 1.5px solid rgba(128, 128, 128, 0.185);
+}
+
+.header__burguerIcon {
+    cursor: pointer;
+
+}
+
+/* ICON BURGER */
+.header__burguerIcon,
+.fa-bars {
+    font-size: 1.6rem;
 }
 
 .header__logoContainer {
@@ -39,18 +50,21 @@
 }
 
 .header__imgContainer {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
-
 .header__searchForm {
-    background-color: #fff;
-    max-width: 400px;
-    height: 45px;
-    width: 100%;
     display: flex;
     border-radius: .6rem;
+    width: 95%;
+    height: 40px;
+}
+
+.header__filterSelect {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .header__formContainer {
@@ -61,8 +75,11 @@
 
 .header__searchForm input {
     width: 100%;
+    height: 40px;
     padding: 0 1rem;
     border: none;
+    border-radius: 0 .6rem .6rem 0;
+
 
 }
 
@@ -70,20 +87,25 @@
     outline: none;
 }
 
+.header__burguerIcon,
 .fa-magnifying-glass {
-    color: #F0F2F2;
+    color: #070707;
+    /*     color: #F0F2F2; */
 }
 
 .header__iconSpan {
     padding: 0 1rem;
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(218, 218, 218);
+    /*  background-color: rgb(20, 20, 20); */
     cursor: pointer;
     display: flex;
     align-items: center;
     border-radius: .6rem 0 0 .6rem;
+
 }
 
-.header__filterOptions select {
+
+.header__filterSelect select {
     border: none;
     height: 35px;
     padding: 0 .5rem;
@@ -92,37 +114,128 @@
     color: #0a0a0a;
 }
 
-.header__filterOptions select:focus {
+.header__filterSelect select:focus {
     outline: none;
 }
 
-.header__filterOptions select>option {
+.header__filterSelect select>option {
     background-color: #ffffff;
     color: #000;
 }
 
-/* Filter buttons */
-.filterButtons {
-    width: 80%;
-    margin: 1rem auto;
-    overflow: hidden;
+.header__filterText {
+    color: #F0F2F2;
+    font-weight: 700;
+    border-bottom: 1px solid gray;
+    width: 90%;
+    text-align: center;
 }
+
+@media (max-width: 992px) {
+    .header__filterOptionsContainer {
+        padding: 1rem 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        right: 5%;
+        background-color: #252525fd;
+        height: 300px;
+        max-width: 300px;
+        width: 100%;
+        z-index: 1;
+        border-radius: .7rem;
+
+    }
+}
+
+@media (min-width: 992px) {
+    .header {
+        justify-content: space-between;
+    }
+
+    .header__burguerIcon {
+        display: none;
+    }
+
+    .header__filterOptionsContainer {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .header__searchForm {
+        background-color: #fff;
+        max-width: 450px;
+        height: 42px;
+        width: 100%;
+        display: flex;
+
+    }
+
+    .header__iconSpan {
+        background-color: rgb(20, 20, 20);
+    }
+
+    .header__burguerIcon,
+    .fa-magnifying-glass {
+        color: #F0F2F2;
+    }
+
+    .header__filterSelect {
+        display: block;
+    }
+
+    .header__filterText {
+        display: none;
+    }
+
+}
+
+/* FILTER BUTTONS*/
+
+.filterButtons {
+    max-width: 80%;
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+
+}
+@media (min-width: 576px){
+    .filterButtons{
+        justify-content: flex-start;
+    }
+}
+
 
 .filterButtons>button {
     width: 100px;
     height: 30px;
     border-radius: 1rem;
-    border: none;
-    background-color: #0a0a0a;
-    color: #F0F2F2;
+    border: 1.5px solid #0a0a0a;
+    color: #000000;
+    background-color: transparent;
     cursor: pointer;
+    font-weight: 700;
 
 }
 
-/* Cards Container */
+.filterButtons button:first-child {
+    background-color: #0a0a0a;
+    color: #F0F2F2;
+}
+
+/* CARDS */
 .newsContainer {
     width: 80%;
-    margin: 0 auto;
+    margin: 2.5rem auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
@@ -145,12 +258,11 @@
     padding: 1rem;
 }
 
+/* FOOTER */
+
 .footer {
-    margin-top: 4rem;
-    height: 5rem;
+    padding: 2rem;
+    text-align: center;
     background-color: #222222;
     color: #F0F2F2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }

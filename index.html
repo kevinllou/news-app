@@ -14,11 +14,16 @@
 
 <body>
     <header class="header">
+     
         <div class="header__logoContainer">
             <div class="header__imgContainer">
                 <img src="./img/news-icon.png" alt="news logo">
             </div>
             <a href="#">24 NEWS</a>
+        </div>
+      <div class="header__filterOptionsContainer">
+        <div class="header__filterText">
+            <p>Filters</p>
         </div>
         <div class="header__searchForm">
             <span class="header__iconSpan"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -26,7 +31,7 @@
                 <input type="search" name="search" id="search" placeholder="Search">
             </form>
         </div>
-        <div class="header__filterOptions">
+        <div class="header__filterSelect">
             <select name="language" id="language" class="header__languageOptions">
                 <option value="null" selected disabled>Choose a language</option>
                 <option value="All">All</option>
@@ -43,6 +48,8 @@
             </select>
 
         </div>
+      </div>
+      <div class="header__burguerIcon"><i class="fa-solid fa-bars"></i></div>
     </header>
     <main class="main">
         <section class="filterButtons">
