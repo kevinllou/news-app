@@ -25,26 +25,26 @@ console.log(newsData);
 
 /*  RENDER CARDS NEWS */
 newContainer.innerHTML = newsData
-  ? newsData
-      .map(
+  ? newsData.map(
         (newElement) => `     
-<a target="_blank" href=${newElement.webUrl}>
-  <article class="newsContainer__card">
-  <figure class="newsContainer__cardImage">
-  <img src=${
+<article class="newsContainer__card">
+  <a target="_blank" href=${newElement.webUrl}>
+     <figure class="newsContainer__cardImage">
+     <img src=${
     newElement.fields.thumbnail || "https://via.placeholder.com/500x300.png"
-  } alt=${newElement.sectionName}>
-  </figure>
+     } alt=${newElement.sectionName}>
+     </figure>
+     </a>
 <div class="newsContainer__cardContet">
-  <p class="newsContainer__cardTitle">${newElement.webTitle}</p>
+  <a class="newsContainer__cardTitle" target="_blank" href=${newElement.webUrl}>${newElement.webTitle}</a>
   <span class="newsContainer__cardAdditionalInfo">${new Date(
     newElement.fields.lastModified
   ).toLocaleDateString()}</span>
   <p class="newsContainer__cardAdditionalInfo">By ${
     newElement.fields.byline
   }</p>
+  </div>
  </article>
-</a>
 `
       )
       .join("")
