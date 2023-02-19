@@ -14,9 +14,9 @@ const fecthNews = async (querySearch, pageSize = 10, language) => {
   }
 };
 
-const renderNews = (newElements) => {
-  let newContainer = document.querySelector(".newsContainer");
-  newContainer.innerHTML = newElements
+const renderNews = (newElements, HTMLContainer) => {
+
+  HTMLContainer.innerHTML = newElements
     .map(
       (newElement) => `     
 <article class="newsContainer__card">
