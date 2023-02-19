@@ -17,9 +17,8 @@ const fecthNews = async (querySearch, pageSize = 10, language) => {
 const renderNews = (newElements) => {
   let newContainer = document.querySelector(".newsContainer");
   newContainer.innerHTML = newElements
-    ? newElements
-        .map(
-          (newElement) => `     
+    .map(
+      (newElement) => `     
 <article class="newsContainer__card">
   <a target="_blank" href=${newElement.webUrl}>
      <figure class="newsContainer__cardImage">
@@ -42,9 +41,8 @@ const renderNews = (newElements) => {
   </div>
  </article>
 `
-        )
-        .join("")
-    : `<h1>${newsError}</h1>`;
+    )
+    .join("");
 };
 
 export { fecthNews, renderNews };
