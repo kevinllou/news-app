@@ -36,16 +36,17 @@ newContainer.innerHTML = newsData
      </figure>
      </a>
 <div class="newsContainer__cardContet">
+  <span class="newsContainer__sectionName">${newElement.sectionName}</span>
   <a class="newsContainer__cardTitle" target="_blank" href=${newElement.webUrl}>${newElement.webTitle}</a>
-  <span class="newsContainer__cardAdditionalInfo">${new Date(
+  <p class="newsContainer__cardAdditionalInfo">${new Date(
     newElement.fields.lastModified
-  ).toLocaleDateString()}</span>
+  ).toLocaleDateString()}</p>
   <p class="newsContainer__cardAdditionalInfo">By ${
-    newElement.fields.byline
+    newElement.fields.byline || "Unkown"
   }</p>
   </div>
  </article>
 `
       )
       .join("")
-  : `<h1>Error</h1>`;
+  : `<h1>${newsError}</h1>`;
