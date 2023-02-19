@@ -1,13 +1,50 @@
-const fecthNews = async () => {
+const fecthNews = async (querySearch, pageSize = 10, language) => {
   try {
     const data = await fetch(
-      "https://content.guardianapis.com/search?api-key=test&page=1&page-size=10&show-fields=thumbnail,lastModified,byline"
+      `https://content.guardianapis.com/search?${
+        querySearch ? `q=${querySearch}` : ""
+      }&api-key=test&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+        language !== undefined || language === "all" ? language : ""
+      }`
     );
     const { response } = await data.json();
-    return [response, undefined];
+    return [response, null];
   } catch (error) {
-    return [undefined, error.message];
+    return [null, error.message];
   }
 };
 
-export { fecthNews };
+const renderNews = (newElements) => {
+  let newContainer = document.querySelector(".newsContainer");
+  newContainer.innerHTML = newElements
+    ? newElements
+        .map(
+          (newElement) => `     
+<article class="newsContainer__card">
+  <a target="_blank" href=${newElement.webUrl}>
+     <figure class="newsContainer__cardImage">
+     <img src=${
+       newElement.fields.thumbnail || "https://via.placeholder.com/500x300.png"
+     } alt=${newElement.sectionName}>
+     </figure>
+     </a>
+<div class="newsContainer__cardContet">
+  <span class="newsContainer__sectionName">${newElement.sectionName}</span>
+  <a class="newsContainer__cardTitle" target="_blank" href=${
+    newElement.webUrl
+  }>${newElement.webTitle}</a>
+  <p class="newsContainer__cardAdditionalInfo">${new Date(
+    newElement.fields.lastModified
+  ).toLocaleDateString()}</p>
+  <p class="newsContainer__cardAdditionalInfo">By ${
+    newElement.fields.byline || "Unkown"
+  }</p>
+  </div>
+ </article>
+`
+        )
+        .join("")
+    : `<h1>${newsError}</h1>`;
+};
+
+export { fecthNews, renderNews };
