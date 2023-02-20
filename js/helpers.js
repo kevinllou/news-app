@@ -55,6 +55,14 @@ const renderNews = (newElements, HTMLContainer) => {
     .join("");
 };
 
+const showErrorNews = () => {
+  let paragraph = document.createElement("p");
+  newContainer.appendChild(paragraph);
+  paragraph.innerText = "There is no data available.....";
+  paragraph.style.textAlign = "center";
+  paragraph.style.fontWeight = "700";
+};
+
 const useDebounce = (getData, delay) => {
   let timeoutID;
   return function (...args) {
@@ -64,4 +72,4 @@ const useDebounce = (getData, delay) => {
     timeoutID = setTimeout(() => getData(...args), delay);
   };
 };
-export { fecthNews, fetchSingleNew, renderNews, useDebounce };
+export { fecthNews, fetchSingleNew, renderNews,showErrorNews, useDebounce };
