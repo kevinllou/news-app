@@ -15,7 +15,6 @@ const fecthNews = async (querySearch, pageSize = 10, language) => {
 };
 
 const renderNews = (newElements, HTMLContainer) => {
-
   HTMLContainer.innerHTML = newElements
     .map(
       (newElement) => `     
@@ -45,4 +44,13 @@ const renderNews = (newElements, HTMLContainer) => {
     .join("");
 };
 
-export { fecthNews, renderNews };
+const useDebounce = (getData, delay) => {
+  let timeoutID;
+  return function (...args) {
+    if (timeoutID) {
+      clearTimeout(timeoutID);
+    }
+    timeoutID = setTimeout(() => getData(...args), delay);
+  };
+};
+export { fecthNews, renderNews, useDebounce };
