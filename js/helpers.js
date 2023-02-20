@@ -57,7 +57,7 @@ const renderNews = (newElements, HTMLContainer) => {
 
 const showErrorNews = (HTMLContainer) => {
   let paragraph = document.createElement("p");
-  newContainer.appendChild(paragraph);
+  HTMLContainer.appendChild(paragraph);
   paragraph.innerText = "There is no data available.....";
   paragraph.style.textAlign = "center";
   paragraph.style.fontWeight = "700";
