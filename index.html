@@ -14,43 +14,43 @@
 
 <body>
     <header class="header">
-     
+
         <div class="header__logoContainer">
             <div class="header__imgContainer">
                 <img src="./img/news-icon.png" alt="news logo">
             </div>
             <a href="#">24 NEWS</a>
         </div>
-      <div class="header__filterOptionsContainer">
-        <div class="header__filterText">
-            <p>Filters</p>
-        </div>
-        <div class="header__searchForm">
-            <span class="header__iconSpan"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <form class="header__formContainer" autocomplete="off">
-                <input type="search" name="search" id="search" placeholder="Search">
-               
-            </form>
-        </div>
-        <div class="header__filterSelect">
-            <select name="language" id="language" class="header__languageOptions">
-                <option value="null" selected disabled>Choose a language</option>
-                <option value="All">All</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-            </select>
-            <select name="numberOfNews" id="numberOfNews">
-                <option value="null" selected disabled>Number of news</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-            </select>
+        <div class="header__filterOptionsContainer">
+            <div class="header__filterText">
+                <p>Filters</p>
+            </div>
+            <div class="header__searchForm">
+                <span class="header__iconSpan"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <form class="header__formContainer" autocomplete="off">
+                    <input type="search" name="search" id="search" placeholder="Search">
+                    <ul class="header__listOptions"></ul>
+                </form>
+            </div>
+            <div class="header__filterSelect">
+                <select name="language" id="language" class="header__languageOptions">
+                    <option value="null" selected disabled>Choose a language</option>
+                    <option value="all">All</option>
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                </select>
+                <select name="numberOfNews" id="numberOfNews">
+                    <option value="10" selected disabled>Number of news</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
 
+            </div>
         </div>
-      </div>
-      <div class="header__burguerIcon"><i class="fa-solid fa-bars"></i></div>
+        <div class="header__burguerIcon"><i class="fa-solid fa-bars"></i></div>
     </header>
     <main class="main">
         <section class="filterButtons">
@@ -62,7 +62,7 @@
             <button id="football">Football</button>
         </section>
         <section class="newsContainer">
-           
+
         </section>
     </main>
     <footer class="footer">

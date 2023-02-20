@@ -141,6 +141,7 @@ body {
 }
 
 .header__listOptions {
+    display: none;
     position: absolute;
     top: 50px;
     left: 0;
@@ -167,8 +168,8 @@ body {
     padding: .2rem 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
-
 @media (max-width: 992px) {
     .header__filterOptionsContainer {
         padding: 1rem 0;
