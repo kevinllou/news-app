@@ -69,11 +69,13 @@ searchInput.addEventListener(
               await fetchSingleNew(event.target.dataset.idSearch);
             const singleNewArray = [content, ...relatedContent];
             newContainer.innerHTML = "";
-            renderNews(singleNewArray, newContainer);
+            !listDataError
+              ? renderNews(singleNewArray, newContainer)
+              : showErrorNews(newContainer);
           })
         );
       } else {
-        listOfSuggestions.innerHTML = "<li>There was an unexpected error</li>"
+        listOfSuggestions.innerHTML = "<li>There was an unexpected error</li>";
       }
     } else {
       listOfSuggestions.innerHTML = "";
@@ -93,10 +95,30 @@ form.addEventListener("submit", async (event) => {
       searchInput.value
     );
     newContainer.innerHTML = "";
-    if (!newsError && newsData.length>0) {
+    if (!newsError && newsData.length > 0) {
       renderNews(newsData, newContainer);
     } else {
       showErrorNews(newContainer);
     }
   }
+});
+
+/*  Filter buttons */
+const filterButtons = document.querySelectorAll(".filterButtons > button");
+let lastButton = document.querySelector("#all");
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+
+    if (button.id !== "all") {
+      lastButton.classList.remove("filterButtons--active");
+      button.classList.add("filterButtons--active");
+      //fetch
+   
+    } else {
+      lastButton.classList.remove("filterButtons--active");
+      button.classList.add("filterButtons--active");
+      //fetch
+    }
+    lastButton = button;
+  });
 });
