@@ -1,4 +1,4 @@
-import { fecthNews } from "./helpers.js";
+import { fecthNews, renderNews } from "./helpers.js";
 /* Button for dropdown container */
 const btnDrowpDown = document.querySelector(".header__burguerIcon");
 const dropdownContainer = document.querySelector(
@@ -19,34 +19,19 @@ btnDrowpDown.addEventListener("click", (event) => {
 });
 
 /* ------------------------------------------------------------- */
+/*          RENDERING CARDS BY WHEN DOCUMENT IS LOADEAD         */
+/* ------------------------------------------------------------- */
 let newContainer = document.querySelector(".newsContainer");
 const [{ results: newsData }, newsError] = await fecthNews();
-console.log(newsData);
 
-/*  RENDER CARDS NEWS */
-newContainer.innerHTML = newsData
-  ? newsData.map(
-        (newElement) => `     
-<article class="newsContainer__card">
-  <a target="_blank" href=${newElement.webUrl}>
-     <figure class="newsContainer__cardImage">
-     <img src=${
-    newElement.fields.thumbnail || "https://via.placeholder.com/500x300.png"
-     } alt=${newElement.sectionName}>
-     </figure>
-     </a>
-<div class="newsContainer__cardContet">
-  <span class="newsContainer__sectionName">${newElement.sectionName}</span>
-  <a class="newsContainer__cardTitle" target="_blank" href=${newElement.webUrl}>${newElement.webTitle}</a>
-  <p class="newsContainer__cardAdditionalInfo">${new Date(
-    newElement.fields.lastModified
-  ).toLocaleDateString()}</p>
-  <p class="newsContainer__cardAdditionalInfo">By ${
-    newElement.fields.byline || "Unkown"
-  }</p>
-  </div>
- </article>
-`
-      )
-      .join("")
-  : `<h1>${newsError}</h1>`;
+console.log(newsData);
+if (!newsError) {
+  renderNews(newsData, newContainer);
+} else {
+  let paragraph = document.createElement("p");
+  newContainer.appendChild(paragraph);
+  paragraph.innerText = "There is no data available.....";
+  paragraph.style.textAlign = "center";
+  paragraph.style.fontWeight = "700";
+}
+
