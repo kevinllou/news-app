@@ -2,6 +2,7 @@ import {
   fecthNews,
   fetchSingleNew,
   renderNews,
+  showErrorNews,
   useDebounce,
 } from "./helpers.js";
 /* Button for dropdown container */
@@ -34,11 +35,7 @@ const [{ results: newsData }, newsError] = await fecthNews();
 if (!newsError) {
   renderNews(newsData, newContainer);
 } else {
-  let paragraph = document.createElement("p");
-  newContainer.appendChild(paragraph);
-  paragraph.innerText = "There is no data available.....";
-  paragraph.style.textAlign = "center";
-  paragraph.style.fontWeight = "700";
+  showErrorNews(newContainer);
 }
 
 /*Search news whenever the value of the input search changes */
@@ -99,11 +96,7 @@ form.addEventListener("submit", async (event) => {
     if (!newsError && newsData.length>0) {
       renderNews(newsData, newContainer);
     } else {
-      let paragraph = document.createElement("p");
-      newContainer.appendChild(paragraph);
-      paragraph.innerText = "There is no data available.....";
-      paragraph.style.textAlign = "center";
-      paragraph.style.fontWeight = "700";
+      showErrorNews(newContainer);
     }
   }
 });
