@@ -107,17 +107,21 @@ form.addEventListener("submit", async (event) => {
 const filterButtons = document.querySelectorAll(".filterButtons > button");
 let lastButton = document.querySelector("#all");
 filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", async () => {
+    lastButton.classList.remove("filterButtons--active");
+    button.classList.add("filterButtons--active");
 
-    if (button.id !== "all") {
-      lastButton.classList.remove("filterButtons--active");
-      button.classList.add("filterButtons--active");
-      //fetch
-   
+    const [{ results: newsData }, newsError] = await fecthNews(
+      "",
+      numberOfNews.value,
+      languageSelect.value,
+      button.id
+    );
+    newContainer.innerHTML = "";
+    if (!newsError && newsData.length > 0) {
+      renderNews(newsData, newContainer);
     } else {
-      lastButton.classList.remove("filterButtons--active");
-      button.classList.add("filterButtons--active");
-      //fetch
+      showErrorNews(newContainer);
     }
     lastButton = button;
   });

@@ -1,11 +1,16 @@
-const fecthNews = async (querySearch, pageSize = 10, language = "all") => {
+const fecthNews = async (
+  querySearch,
+  pageSize = 10,
+  language = "all",
+  sectionName
+) => {
   try {
     const data = await fetch(
       `https://content.guardianapis.com/search?${
         querySearch ? `q="${querySearch}"` : ""
       }&api-key=test&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
         language !== "all" && language !== "null" ? `&lang=${language}` : ""
-      }`
+      }${sectionName && sectionName !== "all" ? `&section=${sectionName}` : ""}`
     );
     const { response } = await data.json();
     return [response, null];
@@ -72,4 +77,4 @@ const useDebounce = (getData, delay) => {
     timeoutID = setTimeout(() => getData(...args), delay);
   };
 };
-export { fecthNews, fetchSingleNew, renderNews,showErrorNews, useDebounce };
+export { fecthNews, fetchSingleNew, renderNews, showErrorNews, useDebounce };
