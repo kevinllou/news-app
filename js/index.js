@@ -24,13 +24,12 @@ btnDrowpDown.addEventListener("click", (event) => {
 });
 
 /* ------------------------------------------------------------- */
-/*          RENDERING CARDS BY WHEN DOCUMENT IS LOADEAD         */
+/*          RENDERING CARDS WHEN DOCUMENT IS LOADEAD         */
 /* ------------------------------------------------------------- */
 let newContainer = document.querySelector(".newsContainer");
 const languageSelect = document.querySelector("#language");
 const numberOfNews = document.querySelector("#numberOfNews");
 const [{ results: newsData }, newsError] = await fecthNews();
-
 
 if (!newsError) {
   renderNews(newsData, newContainer);
@@ -42,6 +41,8 @@ if (!newsError) {
   paragraph.style.fontWeight = "700";
 }
 
+/*Search news whenever the value of the input search changes */
+
 const searchInput = document.querySelector("#search");
 const listOfSuggestions = document.querySelector(".header__listOptions");
 
@@ -50,15 +51,19 @@ searchInput.addEventListener(
   useDebounce(async (event) => {
     if (event.target.value.length > 0) {
       const [{ results: filterNews }, filterError] = await fecthNews(
-        event.target.value, numberOfNews.value, languageSelect.value
+        event.target.value,
+        numberOfNews.value,
+        languageSelect.value
       );
-      if (!filterError) {
+      if (!filterError && filterNews.length > 0) {
         listOfSuggestions.style.display = "block";
         listOfSuggestions.innerHTML = filterNews
           .map(
             (element) => `
                 <li data-id-search = ${element.id}>${element.webTitle}</li>
-            `).join("");
+            `
+          )
+          .join("");
         const lists = document.querySelectorAll("li");
         lists.forEach((list) =>
           list.addEventListener("click", async (event) => {
@@ -71,7 +76,7 @@ searchInput.addEventListener(
           })
         );
       } else {
-        console.log("We couldnt find it");
+        listOfSuggestions.innerHTML = "<li>There was an unexpected error</li>"
       }
     } else {
       listOfSuggestions.innerHTML = "";
@@ -79,3 +84,26 @@ searchInput.addEventListener(
     }
   }, 800)
 );
+
+/* Event listener to the form whenever an user submits to request the new */
+
+const form = document.querySelector(".header__formContainer");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (searchInput.value.length > 0) {
+    const [{ results: newsData }, newsError] = await fecthNews(
+      searchInput.value
+    );
+    newContainer.innerHTML = "";
+    if (!newsError && newsData.length>0) {
+      renderNews(newsData, newContainer);
+    } else {
+      let paragraph = document.createElement("p");
+      newContainer.appendChild(paragraph);
+      paragraph.innerText = "There is no data available.....";
+      paragraph.style.textAlign = "center";
+      paragraph.style.fontWeight = "700";
+    }
+  }
+});
