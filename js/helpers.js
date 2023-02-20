@@ -4,7 +4,7 @@ const fecthNews = async (querySearch, pageSize = 10, language = "all") => {
       `https://content.guardianapis.com/search?${
         querySearch ? `q="${querySearch}"` : ""
       }&api-key=test&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
-        language !== "all" ? `&lang=${language}` : ""
+        language !== "all" && language !== "null" ? `&lang=${language}` : ""
       }`
     );
     const { response } = await data.json();
