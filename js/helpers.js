@@ -55,7 +55,7 @@ const renderNews = (newElements, HTMLContainer) => {
     .join("");
 };
 
-const showErrorNews = () => {
+const showErrorNews = (HTMLContainer) => {
   let paragraph = document.createElement("p");
   newContainer.appendChild(paragraph);
   paragraph.innerText = "There is no data available.....";
