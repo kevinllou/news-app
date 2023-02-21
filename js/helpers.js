@@ -1,3 +1,5 @@
+import { API_KEY, BASE_URL } from "./const.js";
+
 const fecthNews = async (
   querySearch,
   pageSize = 10,
@@ -6,9 +8,9 @@ const fecthNews = async (
 ) => {
   try {
     const data = await fetch(
-      `https://content.guardianapis.com/search?${
+      `${BASE_URL}search?${
         querySearch ? `q="${querySearch}"` : ""
-      }&api-key=test&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+      }&api-key=${API_KEY}&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
         language !== "all" && language !== "null" ? `&lang=${language}` : ""
       }${sectionName && sectionName !== "all" ? `&section=${sectionName}` : ""}`
     );
@@ -21,7 +23,7 @@ const fecthNews = async (
 const fetchSingleNew = async (idSearch, pageSize = 10, language = "all") => {
   try {
     const data = await fetch(
-      `https://content.guardianapis.com/${idSearch}?api-key=test&page=1&show-related=true&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+      `${BASE_URL}${idSearch}?api-key=${API_KEY}&page=1&show-related=true&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
         language !== "all" && language !== "null" ? `&lang=${language}` : ""
       }`
     );

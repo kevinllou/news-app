@@ -66,6 +66,7 @@ searchInput.addEventListener(
         numberOfNews.value,
         languageSelect.value
       );
+      /* Set object in the localStorage */
       localStorage.setItem(
         "filters",
         JSON.stringify({
