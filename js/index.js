@@ -30,8 +30,25 @@ btnDrowpDown.addEventListener("click", (event) => {
 let newContainer = document.querySelector(".newsContainer");
 const languageSelect = document.querySelector("#language");
 const numberOfNews = document.querySelector("#numberOfNews");
-const [{ results: newsData }, newsError] = await fecthNews();
+const searchInput = document.querySelector("#search");
+const listOfSuggestions = document.querySelector(".header__listOptions");
 
+if (localStorage.getItem("filters") !== null) {
+  // Item exists in localStorage
+  console.log("defined");
+  const { query, pageSize, language } = JSON.parse(
+    localStorage.getItem("filters")
+  );
+  searchInput.value = query;
+  numberOfNews.value = pageSize;
+  languageSelect.value = language === "null" ? "all" : language;
+  console.log(numberOfNews.value);
+} else {
+  // Item does not exist in localStorage
+  console.log("undefined");
+}
+
+const [{ results: newsData }, newsError] = await fecthNews();
 if (!newsError) {
   renderNews(newsData, newContainer);
 } else {
@@ -39,9 +56,6 @@ if (!newsError) {
 }
 
 /*Search news whenever the value of the input search changes */
-
-const searchInput = document.querySelector("#search");
-const listOfSuggestions = document.querySelector(".header__listOptions");
 
 searchInput.addEventListener(
   "input",
@@ -52,6 +66,7 @@ searchInput.addEventListener(
         numberOfNews.value,
         languageSelect.value
       );
+
       if (!filterError && filterNews.length > 0) {
         listOfSuggestions.style.display = "block";
         listOfSuggestions.innerHTML = filterNews
@@ -92,7 +107,17 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (searchInput.value.length > 0) {
     const [{ results: newsData }, newsError] = await fecthNews(
-      searchInput.value
+      searchInput.value,
+      numberOfNews.value,
+      languageSelect.value
+    );
+    localStorage.setItem(
+      "filters",
+      JSON.stringify({
+        query: searchInput.value,
+        pageSize: numberOfNews.value,
+        language: languageSelect.value,
+      })
     );
     newContainer.innerHTML = "";
     if (!newsError && newsData.length > 0) {
