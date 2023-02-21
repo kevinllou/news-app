@@ -83,7 +83,7 @@ searchInput.addEventListener(
           )
           .join("");
         /*Get all list from the ul tag  */
-        const lists = document.querySelectorAll("header__listOptions > li");
+        const lists = document.querySelectorAll(".header__listOptions > li");
         /* Add an event listener to each list tag to trigger an event */
         lists.forEach((list) =>
           list.addEventListener("click", async (event) => {

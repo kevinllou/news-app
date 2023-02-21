@@ -10,7 +10,9 @@ const fecthNews = async (
     const data = await fetch(
       `${BASE_URL}search?${
         querySearch ? `q="${querySearch}"` : ""
-      }&api-key=${API_KEY}&page=1&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+      }&api-key=${API_KEY}&page=1&page-size=${
+        pageSize !== "null" ? pageSize : 10
+      }&show-fields=thumbnail,lastModified,byline${
         language !== "all" && language !== "null" ? `&lang=${language}` : ""
       }${sectionName && sectionName !== "all" ? `&section=${sectionName}` : ""}`
     );
@@ -23,7 +25,9 @@ const fecthNews = async (
 const fetchSingleNew = async (idSearch, pageSize = 10, language = "all") => {
   try {
     const data = await fetch(
-      `${BASE_URL}${idSearch}?api-key=${API_KEY}&page=1&show-related=true&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+      `${BASE_URL}${idSearch}?api-key=${API_KEY}&page=1&show-related=true&page-size=${
+        pageSize !== "null" ? pageSize : 10
+      }&show-fields=thumbnail,lastModified,byline${
         language !== "all" && language !== "null" ? `&lang=${language}` : ""
       }`
     );
