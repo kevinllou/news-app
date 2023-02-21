@@ -5,11 +5,19 @@ import {
   showErrorNews,
   useDebounce,
 } from "./helpers.js";
-/* Button for dropdown container */
+
+let newContainer = document.querySelector(".newsContainer");
 const btnDrowpDown = document.querySelector(".header__burguerIcon");
+const languageSelect = document.querySelector("#language");
+const numberOfNews = document.querySelector("#numberOfNews");
+const searchInput = document.querySelector("#search");
+const listOfSuggestions = document.querySelector(".header__listOptions");
 const dropdownContainer = document.querySelector(
   ".header__filterOptionsContainer"
 );
+const form = document.querySelector(".header__formContainer");
+const filterButtons = document.querySelectorAll(".filterButtons > button");
+let lastButton = document.querySelector("#all");
 
 btnDrowpDown.addEventListener("click", (event) => {
   const iconOpen = document.querySelector(".header__burguerIcon > i");
@@ -24,18 +32,9 @@ btnDrowpDown.addEventListener("click", (event) => {
   }
 });
 
-/* ------------------------------------------------------------- */
-/*          RENDERING CARDS WHEN DOCUMENT IS LOADEAD         */
-/* ------------------------------------------------------------- */
-let newContainer = document.querySelector(".newsContainer");
-const languageSelect = document.querySelector("#language");
-const numberOfNews = document.querySelector("#numberOfNews");
-const searchInput = document.querySelector("#search");
-const listOfSuggestions = document.querySelector(".header__listOptions");
+/* Check if there is an object set in the localStorage*/
 
 if (localStorage.getItem("filters") !== null) {
-  // Item exists in localStorage
-  console.log("defined");
   const { query, pageSize, language } = JSON.parse(
     localStorage.getItem("filters")
   );
@@ -43,11 +42,9 @@ if (localStorage.getItem("filters") !== null) {
   numberOfNews.value = pageSize;
   languageSelect.value = language === "null" ? "all" : language;
   console.log(numberOfNews.value);
-} else {
-  // Item does not exist in localStorage
-  console.log("undefined");
-}
+} 
 
+/* Get initial data from the API to render news in cards */
 const [{ results: newsData }, newsError] = await fecthNews();
 if (!newsError) {
   renderNews(newsData, newContainer);
@@ -56,11 +53,11 @@ if (!newsError) {
 }
 
 /*Search news whenever the value of the input search changes */
-
 searchInput.addEventListener(
   "input",
   useDebounce(async (event) => {
     if (event.target.value.length > 0) {
+      /* Get data from the API to render information in a list tag */
       const [{ results: filterNews }, filterError] = await fecthNews(
         event.target.value,
         numberOfNews.value,
@@ -75,7 +72,7 @@ searchInput.addEventListener(
           language: languageSelect.value,
         })
       );
-
+      /* Check if there wasn't an unexpected error */
       if (!filterError && filterNews.length > 0) {
         listOfSuggestions.style.display = "block";
         listOfSuggestions.innerHTML = filterNews
@@ -85,7 +82,9 @@ searchInput.addEventListener(
             `
           )
           .join("");
-        const lists = document.querySelectorAll("li");
+        /*Get all list from the ul tag  */
+        const lists = document.querySelectorAll("header__listOptions > li");
+        /* Add an event listener to each list tag to trigger an event */
         lists.forEach((list) =>
           list.addEventListener("click", async (event) => {
             console.log("click");
@@ -114,8 +113,6 @@ searchInput.addEventListener(
 
 /* Event listener to the form whenever an user submits to request the new */
 
-const form = document.querySelector(".header__formContainer");
-
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (searchInput.value.length > 0) {
@@ -124,6 +121,7 @@ form.addEventListener("submit", async (event) => {
       numberOfNews.value,
       languageSelect.value
     );
+     /* Set object in the localStorage */
     localStorage.setItem(
       "filters",
       JSON.stringify({
@@ -142,9 +140,8 @@ form.addEventListener("submit", async (event) => {
 });
 
 /*  Filter buttons */
-const filterButtons = document.querySelectorAll(".filterButtons > button");
-let lastButton = document.querySelector("#all");
 filterButtons.forEach((button) => {
+  /* Add an event listener to each button to render sections based on the button id */
   button.addEventListener("click", async () => {
     lastButton.classList.remove("filterButtons--active");
     button.classList.add("filterButtons--active");
