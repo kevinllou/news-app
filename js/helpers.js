@@ -18,10 +18,12 @@ const fecthNews = async (
     return [null, error.message];
   }
 };
-const fetchSingleNew = async (idSearch, pageSize = 10) => {
+const fetchSingleNew = async (idSearch, pageSize = 10, language = "all") => {
   try {
     const data = await fetch(
-      `https://content.guardianapis.com/${idSearch}?api-key=test&page=1&show-related=true&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline`
+      `https://content.guardianapis.com/${idSearch}?api-key=test&page=1&show-related=true&page-size=${pageSize}&show-fields=thumbnail,lastModified,byline${
+        language !== "all" && language !== "null" ? `&lang=${language}` : ""
+      }`
     );
     const { response } = await data.json();
     return [response, null];

@@ -66,6 +66,14 @@ searchInput.addEventListener(
         numberOfNews.value,
         languageSelect.value
       );
+      localStorage.setItem(
+        "filters",
+        JSON.stringify({
+          query: event.target.value,
+          pageSize: numberOfNews.value,
+          language: languageSelect.value,
+        })
+      );
 
       if (!filterError && filterNews.length > 0) {
         listOfSuggestions.style.display = "block";
@@ -81,7 +89,11 @@ searchInput.addEventListener(
           list.addEventListener("click", async (event) => {
             console.log("click");
             const [{ content, relatedContent }, listDataError] =
-              await fetchSingleNew(event.target.dataset.idSearch);
+              await fetchSingleNew(
+                event.target.dataset.idSearch,
+                numberOfNews.value,
+                languageSelect.value
+              );
             const singleNewArray = [content, ...relatedContent];
             newContainer.innerHTML = "";
             !listDataError
